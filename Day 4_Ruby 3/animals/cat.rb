@@ -8,4 +8,8 @@ class Cat < Mammal
 	def move
 		"prowl silently on four paws"
 	end
+
+	def fall
+		"Land on feet"
+	end
 end
