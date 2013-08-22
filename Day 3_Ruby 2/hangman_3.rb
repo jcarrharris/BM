@@ -11,6 +11,7 @@ class Hangman
         while @word != @user_word && @lives > 0
                 guess_the_word
                 match_the_letter
+                drawing
         end
         puts @lives > 0 ? "Congrats bro!" : "The correct word was #{@word}.\nGame Over Man!"
     end
@@ -45,6 +46,20 @@ class Hangman
         end
         puts @user_word
     end
+
+    def drawing
+            puts "_______"
+            puts "|     |"
+            puts "|     O"      if @lives < 5
+            puts "|    /|"      if @lives == 3
+            puts "|    /|\\"    if @lives < 3
+            puts "|    /"       if @lives == 1
+            puts "|    / \\"    if @lives < 1
+            puts "|"            if @lives == 5
+            puts "|"            if @lives >= 4
+            puts "|"            if @lives >= 2
+            puts "|______"
+        end
 
 end
 
