@@ -1,0 +1,12 @@
+<h2>Hello</h2>
+
+<p>
+<%= @date.to_s(:long) %>
+<%= @model.welcome_message %>
+</p>
+
+<form method="get" action="index">
+	<input type="text" name="msg"/>
+	<input type="submit" name="Submit" value="Submit"/>
+</form>
+
