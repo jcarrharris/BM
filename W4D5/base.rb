@@ -9,18 +9,20 @@ class Base
 		end
 	end
 
-	def method_missing(method, *args, &block)
-		puts "Method is: #{method}"
-		puts "Args is: #{args}"
+	def update_attributes(attributes)
+		@attributes = attributes
+	end
+	
 
-		method_name = method.to_s[0..-1].downcase
-		if @attributes[method_name.to_sym]
-			puts "found a matching attribute"
-		else
-			super
+	def method_missing(method, *args, &block)
+		method_name = method.to_s[0..-2].downcase
+		name = method_name
+
+		if @attributes.has_key?(name.to_sym)
+			@attributes[name.to_sym] = args[0]
+			puts @attributes.inspect
 		end
 	end
-
 end
 
 
@@ -28,4 +30,4 @@ cat = Base.new([:name, :breed])
 person = Base.new([:name, :address])
 
 cat.name = "kittie"
-person.address = "555 somewher ave, fakeville"
+person.address = "555 somewhere ave, fakeville"
