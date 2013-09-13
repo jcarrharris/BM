@@ -10,17 +10,23 @@ class Base
 	end
 
 	def update_attributes(attributes)
-		@attributes = attributes
+		@attributes.merge! attributes
 	end
-	
+
 
 	def method_missing(method, *args, &block)
-		method_name = method.to_s[0..-2].downcase
-		name = method_name
+		if method.to_s.include?("=")
+			puts "equal sign method"
+		
+		method_name = method.to_s[0..-2]
 
-		if @attributes.has_key?(name.to_sym)
-			@attributes[name.to_sym] = args[0]
-			puts @attributes.inspect
+			if @attributes.has_key?(method_name.to_sym)
+			@attributes[method_name.to_sym] = args[0]
+			end
+		elsif !method.to_s.include?("=")
+			@attributes[method]
+		else
+			super
 		end
 	end
 end
@@ -29,5 +35,10 @@ end
 cat = Base.new([:name, :breed])
 person = Base.new([:name, :address])
 
+cat.update_attributes ({:breed => "tabby"})
+
 cat.name = "kittie"
 person.address = "555 somewhere ave, fakeville"
+puts cat.name
+puts cat.breed
+puts person.address
